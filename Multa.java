@@ -1,6 +1,9 @@
-public class Multa
+public class Multa extends Prestamo 
 {
-    public static void main(String[] args) {
-        System.out.println("Hola");
+    
+    public Multa(String id, Usuario usuario, Libro libro) 
+    {
+        super(id, usuario, libro);
     }
+    
 }

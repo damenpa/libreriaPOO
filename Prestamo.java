@@ -7,12 +7,15 @@ public class Prestamo {
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucionEsperada;
     private LocalDate fechaDevolucionReal;
-    private int estado; 
+    private int estado;
+
     public static final int ACTIVO = 0;
     public static final int DEVUELTO = 1;
     public static final int VENCIDO = 2;
-    public Prestamo(String id, Usuario usuario, Libro libro) {
-				this.id = id;
+
+    public Prestamo(String id, Usuario usuario, Libro libro) 
+    {
+		this.id = id;
         this.usuario = usuario;
         this.libro = libro;
         this.fechaPrestamo = LocalDate.now();
@@ -20,6 +23,7 @@ public class Prestamo {
         this.fechaDevolucionReal = null;
         this.estado = ACTIVO;
     }
+
     public String getId() { 
         return id; 
     }
@@ -80,7 +84,5 @@ public class Prestamo {
         }
         return false;
     }
-    
-
 
 }
