@@ -28,6 +28,13 @@ public class Main {
         for (Observacion obs : observacionesLibro1) 
             System.out.println(obs.toString());
 
+        //Generos preferidos
+        System.out.println("\n=== Agregando géneros preferidos al usuario ===");
+        Usuario usuario1 = new Usuario("Ana Pérez", "USR001");
+        usuario1.getGenerosPreferidos().add("Cuento");
+        usuario1.getGenerosPreferidos().add("Novela");
+        System.out.println(usuario1.toString());
+
         
     }
 }   
