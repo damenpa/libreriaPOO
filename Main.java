@@ -9,8 +9,8 @@ public class Main {
         biblioteca.setEmpleado("José Iturbide", "EMP001", 1000.00, "Bibliotecario", Empleado.MATUTINO);
 
         // Crear algunos libros
-        Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96);
-        Libro libro2 = new Libro("Don Quijote", "Miguel de Cervantes", "978-8424922498", 863);
+        Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96, "Cuento");
+        Libro libro2 = new Libro("Don Quijote", "Miguel de Cervantes", "978-8424922498", 863, "Novela");
 
         //Proceso de observación
         System.out.println("=== Agregando observación al libro ===");

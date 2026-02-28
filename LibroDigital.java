@@ -5,14 +5,15 @@ public class LibroDigital extends Libro {
     private int descargasPermitidas;
     private int descargasActuales;
 
-    public LibroDigital(String titulo, String autor, String isbn, int numPaginas, String formato, double tamanoMB, String urlDescarga) {
-        super(titulo, autor, isbn, numPaginas);
+    public LibroDigital(String titulo, String autor, String isbn, int numPaginas, String formato, String genero, double tamanoMB, String urlDescarga) {
+        super(titulo, autor, isbn, numPaginas, genero);
         this.formato = formato;
         this.tamanoMB = tamanoMB;
         this.urlDescarga = urlDescarga;
         this.descargasPermitidas = 3; // Valor por defecto
         this.descargasActuales = 0;
     }
+    
     public LibroDigital(Libro libro, String formato, double tamanoMB, String urlDescarga) {
 		      super(libro);
 		      this.formato = formato;
@@ -21,6 +22,7 @@ public class LibroDigital extends Libro {
 		      this.descargasPermitidas = 3; // Valor por defecto
 		      this.descargasActuales = 0;
 	}
+
     public String getFormato() { 
         return formato; 
     }
@@ -29,6 +31,7 @@ public class LibroDigital extends Libro {
         return tamanoMB; 
     
     }
+
     public String getUrlDescarga() {
         return urlDescarga; 
     }
@@ -40,6 +43,7 @@ public class LibroDigital extends Libro {
     public int getDescargasActuales() { 
         return descargasActuales; 
     }
+
     public boolean descargar() {
         if (descargasActuales < descargasPermitidas) {
             descargasActuales++;
@@ -47,16 +51,18 @@ public class LibroDigital extends Libro {
         }
         return false;
     }
+
     public void reiniciarDescargas() {
         descargasActuales = 0;
     }
+
     public boolean prestarLibro() {
         if (descargasActuales < descargasPermitidas) {
             return super.prestarLibro();
         }
         return false;
-    
     }
+
     public String toString() {
     return super.toString() + 
            "\nFormato: " + formato +

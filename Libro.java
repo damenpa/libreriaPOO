@@ -8,6 +8,7 @@ public class Libro {
    private int numPaginas;
    private boolean prestado;
    private Vector<Observacion> observaciones;
+   private String genero;
    
    public Libro() {
     this.titulo = "Sin título";
@@ -25,14 +26,16 @@ public class Libro {
         this.prestado = false;
         this.observaciones = new Vector<Observacion>();
     }
-    public Libro(String titulo, String autor, String isbn, int numPaginas) {
+    public Libro(String titulo, String autor, String isbn, int numPaginas, String genero) {
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
         this.numPaginas = numPaginas;
         this.prestado = false;
         this.observaciones = new Vector<Observacion>();
+        this.genero = genero;
     }
+
     public Libro(Libro otroLibro) {
         this.titulo = otroLibro.titulo;
         this.autor = otroLibro.autor;
@@ -124,11 +127,20 @@ public class Libro {
         return observaciones;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
     public String toString() {
         return "Libro: " + titulo + " por " + autor + 
             "\nISBN: " + isbn + 
             "\nPáginas: " + numPaginas +
-            "\nEstado: " + (prestado ? "Prestado" : "Disponible");
+            "\nEstado: " + (prestado ? "Prestado" : "Disponible")
+            + "\nGénero: " + genero;
     }
 
 }
