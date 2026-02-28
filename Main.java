@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.util.Vector;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -9,42 +12,22 @@ public class Main {
         Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96);
         Libro libro2 = new Libro("Don Quijote", "Miguel de Cervantes", "978-8424922498", 863);
 
-        // Crear usuarios
-        Usuario usuario1 = new Usuario("María López", "U001");
-        Usuario usuario2 = new Usuario("Carlos Ruiz", "U002");
+        //Proceso de observación
+        System.out.println("\n=== Agregando observación al libro ===");
+        Observacion observacion1 = new Observacion(1, "Mordieron una pagina", LocalDate.now());
+        libro1.getObservaciones().add(observacion1);
+        
+        Vector<Observacion> observacionesLibro1 = libro1.getObservaciones();
+        System.out.println("Libro: " + libro1.getTitulo() + ":");
+        for (Observacion obs : observacionesLibro1) 
+            System.out.println(obs.toString());
+        
+        System.out.println("\n=== Reparando observación del libro ===");
+        libro1.repararObservacion(1);
+        System.out.println("Libro '" + libro1.getTitulo() + ":");
+        for (Observacion obs : observacionesLibro1) 
+            System.out.println(obs.toString());
 
-        // Demostrar el proceso de préstamo
-        System.out.println("=== Iniciando proceso de préstamo ===");
-        biblioteca.setLibro(libro1);
-        biblioteca.setUsuario(usuario1);
-
-        if (biblioteca.prestarLibro()) {
-            System.out.println("Préstamo realizado con éxito:");
-            System.out.println("Libro: " + libro1.getTitulo());
-            System.out.println("Usuario: " + usuario1.getNombre());
-        } else {
-            System.out.println("No se pudo realizar el préstamo");
-        }
-
-        // Intentar prestar un libro ya prestado
-        System.out.println("\n=== Intentando prestar libro no disponible ===");
-        biblioteca.setLibro(libro1);
-        biblioteca.setUsuario(usuario2);
-
-        if (!biblioteca.prestarLibro()) {
-            System.out.println("Préstamo denegado: Libro no disponible");
-        }
-
-        // Proceso de devolución
-        System.out.println("\n=== Proceso de devolución ===");
-        if (biblioteca.devolverLibro()) {
-            System.out.println("Libro devuelto con éxito:");
-            System.out.println("Libro: " + libro1.getTitulo());
-            System.out.println("Estado: Disponible");
-        }
-
-        // Mostrar estado final de la biblioteca
-        System.out.println("\n=== Estado de la Biblioteca ===");
-        System.out.println(biblioteca.toString());
+        
     }
-}
+}   

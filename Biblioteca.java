@@ -4,6 +4,7 @@ public class Biblioteca {
     private Libro libro;
     private Usuario usuario;
     private Empleado empleadoBibliotecario;
+    
     public Biblioteca(String nombre, String ubicacion) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
