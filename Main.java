@@ -13,7 +13,7 @@ public class Main {
         Libro libro2 = new Libro("Don Quijote", "Miguel de Cervantes", "978-8424922498", 863);
 
         //Proceso de observación
-        System.out.println("\n=== Agregando observación al libro ===");
+        System.out.println("=== Agregando observación al libro ===");
         Observacion observacion1 = new Observacion(1, "Mordieron una pagina", LocalDate.now());
         libro1.getObservaciones().add(observacion1);
         
