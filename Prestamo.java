@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Prestamo {
     private String id;
@@ -8,6 +9,7 @@ public class Prestamo {
     private LocalDate fechaDevolucionEsperada;
     private LocalDate fechaDevolucionReal;
     private int estado;
+    private double multadia=10;
 
     public static final int ACTIVO = 0;
     public static final int DEVUELTO = 1;
@@ -83,6 +85,33 @@ public class Prestamo {
             return true;
         }
         return false;
+    }
+
+    public long calcularDiasRetraso() 
+    {
+        if (fechaDevolucionReal == null) 
+        {
+            return 0;
+        }
+
+        long dias = ChronoUnit.DAYS.between(fechaDevolucionEsperada, fechaDevolucionReal);
+
+        return Math.max(dias, 0);
+    }
+
+    public double calcularMulta() 
+    {
+        return calcularDiasRetraso() * multadia;
+    }
+
+    public boolean tieneMulta() 
+    {
+        return calcularDiasRetraso() > 0;
+    }
+
+    public Recibo generarRecibo() 
+    {
+        return new Recibo(id, usuario, libro, calcularDiasRetraso(), calcularMulta());
     }
 
 }
