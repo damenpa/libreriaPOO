@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 
 public class Empleado extends Persona {
     private String numeroEmpleado;
@@ -5,6 +6,8 @@ public class Empleado extends Persona {
     private double salario;
     private int turno;
     private Prestamo prestamoGestionado;
+    private LocalTime horaEntrada;
+    private LocalTime horaSalida;
     private static int contadorId = 0;
     public static final int MATUTINO = 0;
     public static final int VESPERTINO = 1;
@@ -13,11 +16,13 @@ public class Empleado extends Persona {
     public int nivPermiso;
 
 
-    public Empleado(String nombre, String id, String numeroEmpleado, String puesto, int nivPermiso) {
+    public Empleado(String nombre, String id, String numeroEmpleado, String puesto, int nivPermiso,LocalTime entrada, LocalTime salida) {
         super(nombre, id);
         this.numeroEmpleado = numeroEmpleado;
         this.puesto = puesto;
         this.prestamoGestionado = null;
+        this.horaEntrada = entrada;
+        this.horaSalida = salida;
         this.nivPermiso = nivPermiso;
 
     }
@@ -51,6 +56,21 @@ public class Empleado extends Persona {
     public String obtenerTipo() {
         return "Empleado";
     }
+    public String getHorario(){
+        if(horaEntrada == null && horaSalida == null)
+        return" Sin horario asignado";
+
+        else{
+            return ("Hora de entrada: " + horaEntrada +"\nHora salida: " +horaSalida);
+        }
+    }
+    public void setHoraEntrada(LocalTime entrada){
+        this.horaEntrada = entrada;
+
+    }
+    public void setHoraSalida(LocalTime salida){
+        this.horaSalida = salida;
+    }
     public static String generarId() {
         contadorId++;
         return "P" + String.format("%04d", contadorId);
@@ -77,7 +97,9 @@ public class Empleado extends Persona {
                ", turno=" + turno + 
                ", prestamoGestionado=" + prestamoGestionado + 
                ", nombre=" + getNombre() + 
-               ", id=" + getId() + "]";
+               ", id=" + getId() + "]\n"+
+               "Hora entrada: "+horaEntrada+
+               "\nHora salida: "+ horaSalida;
     }
 
 }

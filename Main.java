@@ -12,7 +12,6 @@ public class Main {
 
         // Crear algunos libros
         Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96, "Cuento");
-        Libro libro2 = new Libro("Don Quijote", "Miguel de Cervantes", "978-8424922498", 863, "Novela");
 
         biblioteca.setLibro(libro1);
         biblioteca.prestarLibro();

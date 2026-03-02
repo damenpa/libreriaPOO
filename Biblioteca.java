@@ -1,3 +1,5 @@
+import java.time.LocalTime;
+
 public class Biblioteca {
     private String nombre;
     private String ubicacion;
@@ -45,7 +47,7 @@ public class Biblioteca {
     }
 
     public void setEmpleado(String nombre, String Id, double salario, String puesto,int nivPermiso, int turno) {
-        this.empleadoBibliotecario = new Empleado( nombre,  Id, "78", puesto, nivPermiso);
+        this.empleadoBibliotecario = new Empleado( nombre,  Id, "78", puesto, nivPermiso,LocalTime.of(10,30), LocalTime.of(13,00));
         empleadoBibliotecario.setSalario(salario);
         empleadoBibliotecario.setTurno(turno);
     }
@@ -55,7 +57,7 @@ public class Biblioteca {
             return empleadoBibliotecario.procesarPrestamo(libro, usuario);
         }
         return false;
-    }
+    } 
     public boolean devolverLibro() {
         if (libro != null && usuario != null && libro.isPrestado() && 
             empleadoBibliotecario != null && empleadoBibliotecario.getPrestamoGestionado() != null) {
