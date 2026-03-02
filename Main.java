@@ -7,10 +7,15 @@ public class Main {
         // Crear una instancia de la biblioteca
         Biblioteca biblioteca = new Biblioteca("Biblioteca Central", "Av. Principal #123");
         biblioteca.setEmpleado("José Iturbide", "EMP001", 1000.00, "Bibliotecario", Empleado.MATUTINO);
+        Usuario usuario = new Usuario("junan", "fr");
+        biblioteca.setUsuario(usuario);
 
         // Crear algunos libros
         Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96);
         Libro libro2 = new Libro("Don Quijote", "Miguel de Cervantes", "978-8424922498", 863);
+        biblioteca.setLibro(libro1);
+        biblioteca.prestarLibro();
+        
 
         //Proceso de observación
         System.out.println("\n=== Agregando observación al libro ===");
@@ -27,6 +32,10 @@ public class Main {
         System.out.println("Libro '" + libro1.getTitulo() + ":");
         for (Observacion obs : observacionesLibro1) 
             System.out.println(obs.toString());
+
+        /*Notificaciones*/
+        System.out.println(biblioteca.bandejaEntrada());
+        biblioteca.devolverLibro();
 
         
     }

@@ -4,6 +4,9 @@ public class Biblioteca {
     private Libro libro;
     private Usuario usuario;
     private Empleado empleadoBibliotecario;
+    private PrestamoVencido vencido;
+    private LibrosDisp disponibilidad;
+
     
     public Biblioteca(String nombre, String ubicacion) {
         this.nombre = nombre;
@@ -58,9 +61,24 @@ public class Biblioteca {
             empleadoBibliotecario != null && empleadoBibliotecario.getPrestamoGestionado() != null) {
             libro.devolverLibro();
             empleadoBibliotecario.devolverPrestamo();
+            disponibilidad = new LibrosDisp(libro);
+            System.out.println(disponibilidad.arrojarNotificacion());
             return true;
         }
         return false;
+    }
+    public String bandejaEntrada(){
+        String men = " ";
+        if (libro != null && usuario != null && libro.isPrestado() &&
+            empleadoBibliotecario != null && empleadoBibliotecario.getPrestamoGestionado() != null){
+                vencido = new PrestamoVencido(empleadoBibliotecario.getPrestamoGestionado());
+                men += vencido.arrojarNotificacion();
+            }
+            else{
+                men = "no resgistros";
+            }
+            return men;
+        
     }
     public String toString() {
         String estado = "";
