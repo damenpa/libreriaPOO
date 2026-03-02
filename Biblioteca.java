@@ -44,8 +44,8 @@ public class Biblioteca {
         return empleadoBibliotecario;
     }
 
-    public void setEmpleado(String nombre, String Id, double salario, String puesto, int turno) {
-        this.empleadoBibliotecario = new Empleado( nombre,  Id, "78", puesto);
+    public void setEmpleado(String nombre, String Id, double salario, String puesto,int nivPermiso, int turno) {
+        this.empleadoBibliotecario = new Empleado( nombre,  Id, "78", puesto, nivPermiso);
         empleadoBibliotecario.setSalario(salario);
         empleadoBibliotecario.setTurno(turno);
     }

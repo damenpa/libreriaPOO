@@ -9,13 +9,17 @@ public class Empleado extends Persona {
     public static final int MATUTINO = 0;
     public static final int VESPERTINO = 1;
     public static final int MIXTO = 2;
+    // 1 = Basico 2 = Supervisor 3 = Gerente
+    public int nivPermiso;
 
 
-    public Empleado(String nombre, String id, String numeroEmpleado, String puesto) {
+    public Empleado(String nombre, String id, String numeroEmpleado, String puesto, int nivPermiso) {
         super(nombre, id);
         this.numeroEmpleado = numeroEmpleado;
         this.puesto = puesto;
         this.prestamoGestionado = null;
+        this.nivPermiso = nivPermiso;
+
     }
     public String getPuesto() {
         return puesto;

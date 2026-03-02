@@ -6,7 +6,7 @@ public class Main {
 
         // Crear una instancia de la biblioteca
         Biblioteca biblioteca = new Biblioteca("Biblioteca Central", "Av. Principal #123");
-        biblioteca.setEmpleado("José Iturbide", "EMP001", 1000.00, "Bibliotecario", Empleado.MATUTINO);
+        biblioteca.setEmpleado("José Iturbide", "EMP001", 1000.00, "Bibliotecario", Empleado.MATUTINO,1);
         Usuario usuario = new Usuario("junan", "fr");
         biblioteca.setUsuario(usuario);
 
@@ -17,6 +17,7 @@ public class Main {
         biblioteca.setLibro(libro1);
         biblioteca.prestarLibro();
         
+
 
         //Proceso de observación
         System.out.println("=== Agregando observación al libro ===");
