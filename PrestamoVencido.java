@@ -20,7 +20,7 @@ public class PrestamoVencido extends Notificacion<Prestamo> {
 
         }
         else{
-            super.mensaje = "El presamos aun tiene: "+(diaHoy-diaVence) + "dias de gracia \n";
+            super.mensaje = "El prestamos aun tiene: "+(diaHoy-diaVence) + "dias de gracia \n";
         }
         return super.mensaje;
     } 

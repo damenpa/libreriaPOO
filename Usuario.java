@@ -4,6 +4,7 @@ public class Usuario extends Persona{
     
     private Libro libroPrestado;
     private Vector<String> generosPreferidos;
+    
 
     public Usuario(String nombre, String id) {
         super(nombre, id);
