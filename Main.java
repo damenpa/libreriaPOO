@@ -42,9 +42,12 @@ public class Main {
         System.out.println(usuario1.toString());
         
         /*Notificaciones*/
+        System.out.println("\n ===== Notificaciones =======");
         System.out.println(biblioteca.bandejaEntrada());
         biblioteca.devolverLibro();
 
-        
+        /*Empleado horario */
+        System.out.println("======Horario entrada-salida Empleado====");
+        System.out.println(biblioteca.getEmpleadoBibliotecario().toString());
     }
 }   
