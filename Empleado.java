@@ -92,13 +92,13 @@ public class Empleado extends Persona {
 		    return false;
 		}
     public String toString() {
-        return "Empleado [puesto=" + puesto + 
-               ", salario=" + salario + 
-               ", turno=" + turno + 
-               ", prestamoGestionado=" + prestamoGestionado + 
-               ", nombre=" + getNombre() + 
-               ", id=" + getId() + "]\n"+
-               "Hora entrada: "+horaEntrada+
+        return "<<<<<Empleado>>>>\npuesto=" + puesto + 
+               ", \nsalario=" + salario + 
+               " \nturno=" + turno + 
+               ", \nprestamoGestionado=" + prestamoGestionado + 
+               ", \nnombre=" + getNombre() + 
+               ", \nid=" + getId() +
+               "\nHora entrada: "+horaEntrada+
                "\nHora salida: "+ horaSalida;
     }
 
