@@ -42,6 +42,7 @@ public class Main {
         System.out.println(usuario1.toString());
         
         /*Notificaciones*/
+        System.out.println("\n=== Probando las notificaciones ===");
         System.out.println(biblioteca.bandejaEntrada());
         biblioteca.devolverLibro();
 
