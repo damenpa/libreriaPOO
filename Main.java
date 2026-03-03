@@ -44,7 +44,6 @@ public class Main {
         
 
         // Notificaciones
-        System.out.println("\n=== Probando las notificaciones ===");
         System.out.println(biblioteca.bandejaEntrada());
         biblioteca.devolverLibro();
 
@@ -63,6 +62,9 @@ public class Main {
             Recibo recibo = prestamo.generarRecibo();
             recibo.imprimir();
         }
-                
+
+        /*Empleado horario */
+        System.out.println("======Horario entrada-salida Empleado====");
+        System.out.println(biblioteca.getEmpleadoBibliotecario().toString());
     }
 }   
