@@ -28,6 +28,6 @@ public class Main {
         for (Observacion obs : observacionesLibro1) 
             System.out.println(obs.toString());
 
-        
+        // Crear un prestamo
     }
 }   

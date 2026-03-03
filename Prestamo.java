@@ -15,13 +15,13 @@ public class Prestamo {
     public static final int DEVUELTO = 1;
     public static final int VENCIDO = 2;
 
-    public Prestamo(String id, Usuario usuario, Libro libro) 
+    public Prestamo(String id, Usuario usuario, Libro libro, String fechaPrestamo) 
     {
 		this.id = id;
         this.usuario = usuario;
         this.libro = libro;
-        this.fechaPrestamo = LocalDate.now();
-        this.fechaDevolucionEsperada = fechaPrestamo.plusDays(14); // 14 días de préstamo por defecto
+        this.fechaPrestamo = LocalDate.parse(fechaPrestamo);
+        this.fechaDevolucionEsperada = this.fechaPrestamo.plusDays(14); // 14 días de préstamo por defecto
         this.fechaDevolucionReal = null;
         this.estado = ACTIVO;
     }
@@ -63,9 +63,10 @@ public class Prestamo {
         }
         return false;
     }
-    public boolean procesarDevolucion() {
-        if (estado == ACTIVO) {
-            fechaDevolucionReal = LocalDate.now();
+    public boolean procesarDevolucion(String strfechaDevolucion) {
+        if (estado == ACTIVO) 
+        {
+            fechaDevolucionReal = LocalDate.parse(strfechaDevolucion);
             if (usuario.devolverLibro()) {
                 estado = DEVUELTO;
                 return true;

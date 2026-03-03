@@ -51,10 +51,10 @@ public class Empleado extends Persona {
         contadorId++;
         return "P" + String.format("%04d", contadorId);
     }
-    public boolean procesarPrestamo(Libro libro, Usuario usuario) { 
+    public boolean procesarPrestamo(Libro libro, Usuario usuario, String fechaPrestamo) { 
         if (libro != null && usuario != null && !libro.isPrestado()) {
             if (usuario.solicitarPrestamo(libro)) {
-                prestamoGestionado = new Prestamo(generarId(), usuario, libro);
+                prestamoGestionado = new Prestamo(generarId(), usuario, libro, fechaPrestamo);
                 return true;
             }
         }

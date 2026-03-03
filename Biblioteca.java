@@ -4,6 +4,7 @@ public class Biblioteca {
     private Libro libro;
     private Usuario usuario;
     private Empleado empleadoBibliotecario;
+    private String fechaPrestamo;
     
     public Biblioteca(String nombre, String ubicacion) {
         this.nombre = nombre;
@@ -49,7 +50,7 @@ public class Biblioteca {
 
     public boolean prestarLibro() {
         if (libro != null && usuario != null && !libro.isPrestado() && empleadoBibliotecario != null) {
-            return empleadoBibliotecario.procesarPrestamo(libro, usuario);
+            return empleadoBibliotecario.procesarPrestamo(libro, usuario, fechaPrestamo);
         }
         return false;
     }
