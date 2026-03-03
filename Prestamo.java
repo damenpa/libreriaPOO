@@ -45,7 +45,11 @@ public class Prestamo {
     public LocalDate getFechaDevolucionEsperada() { 
         return fechaDevolucionEsperada; 
     }
-    
+
+    public void setFechaDevolucionEsperada(LocalDate fechaDevolucionEsperada) {
+        this.fechaDevolucionEsperada = fechaDevolucionEsperada;
+    }
+
     public LocalDate getFechaDevolucionReal() { 
         return fechaDevolucionReal; 
     }
