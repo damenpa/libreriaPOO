@@ -15,6 +15,17 @@ public class Prestamo {
     public static final int DEVUELTO = 1;
     public static final int VENCIDO = 2;
 
+    public Prestamo(String id, Usuario usuario, Libro libro) 
+    {
+		this.id = id;
+        this.usuario = usuario;
+        this.libro = libro;
+        this.fechaPrestamo = LocalDate.now();
+        this.fechaDevolucionEsperada = this.fechaPrestamo.plusDays(14); // 14 días de préstamo por defecto
+        this.fechaDevolucionReal = null;
+        this.estado = ACTIVO;
+    }
+
     public Prestamo(String id, Usuario usuario, Libro libro, String fechaPrestamo) 
     {
 		this.id = id;
@@ -45,7 +56,11 @@ public class Prestamo {
     public LocalDate getFechaDevolucionEsperada() { 
         return fechaDevolucionEsperada; 
     }
-    
+
+    public void setFechaDevolucionEsperada(LocalDate fechaDevolucionEsperada) {
+        this.fechaDevolucionEsperada = fechaDevolucionEsperada;
+    }
+
     public LocalDate getFechaDevolucionReal() { 
         return fechaDevolucionReal; 
     }

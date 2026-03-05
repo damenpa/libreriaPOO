@@ -1,10 +1,14 @@
+import java.time.LocalTime;
+
 public class Biblioteca {
     private String nombre;
     private String ubicacion;
     private Libro libro;
     private Usuario usuario;
     private Empleado empleadoBibliotecario;
-    private String fechaPrestamo;
+    private PrestamoVencido vencido;
+    private LibrosDisp disponibilidad;
+
     
     public Biblioteca(String nombre, String ubicacion) {
         this.nombre = nombre;
@@ -42,26 +46,41 @@ public class Biblioteca {
         return empleadoBibliotecario;
     }
 
-    public void setEmpleado(String nombre, String Id, double salario, String puesto, int turno) {
-        this.empleadoBibliotecario = new Empleado( nombre,  Id, "78", puesto);
+    public void setEmpleado(String nombre, String Id, double salario, String puesto,int nivPermiso, int turno) {
+        this.empleadoBibliotecario = new Empleado( nombre,  Id, "78", puesto, nivPermiso,LocalTime.of(10,30), LocalTime.of(13,00));
         empleadoBibliotecario.setSalario(salario);
         empleadoBibliotecario.setTurno(turno);
     }
 
-    public boolean prestarLibro() {
+    public boolean prestarLibro(String fechaPrestamo) {
         if (libro != null && usuario != null && !libro.isPrestado() && empleadoBibliotecario != null) {
             return empleadoBibliotecario.procesarPrestamo(libro, usuario, fechaPrestamo);
         }
         return false;
-    }
+    } 
     public boolean devolverLibro() {
         if (libro != null && usuario != null && libro.isPrestado() && 
             empleadoBibliotecario != null && empleadoBibliotecario.getPrestamoGestionado() != null) {
             libro.devolverLibro();
             empleadoBibliotecario.devolverPrestamo();
+            disponibilidad = new LibrosDisp(libro);
+            System.out.println(disponibilidad.arrojarNotificacion());
             return true;
         }
         return false;
+    }
+    public String bandejaEntrada(){
+        String men = " ";
+        if (libro != null && usuario != null && libro.isPrestado() &&
+            empleadoBibliotecario != null && empleadoBibliotecario.getPrestamoGestionado() != null){
+                vencido = new PrestamoVencido(empleadoBibliotecario.getPrestamoGestionado());
+                men += vencido.arrojarNotificacion();
+            }
+            else{
+                men = "no resgistros";
+            }
+            return men;
+        
     }
     public String toString() {
         String estado = "";

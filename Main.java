@@ -4,16 +4,22 @@ import java.util.Vector;
 public class Main {
     public static void main(String[] args) {
 
+
         // Crear una instancia de la biblioteca
         Biblioteca biblioteca = new Biblioteca("Biblioteca Central", "Av. Principal #123");
-        biblioteca.setEmpleado("José Iturbide", "EMP001", 1000.00, "Bibliotecario", Empleado.MATUTINO);
+        biblioteca.setEmpleado("José Iturbide", "EMP001", 1000.00, "Bibliotecario", Empleado.MATUTINO,1);
+        Usuario usuario = new Usuario("junan", "fr");
+        biblioteca.setUsuario(usuario);
+
 
         // Crear algunos libros
-        Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96);
-        Libro libro2 = new Libro("Don Quijote", "Miguel de Cervantes", "978-8424922498", 863);
+        Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96, "Cuento");
+        biblioteca.setLibro(libro1);
+        biblioteca.prestarLibro("2026-03-04");
+        
 
         //Proceso de observación
-        System.out.println("\n=== Agregando observación al libro ===");
+        System.out.println("=== Agregando observación al libro ===");
         Observacion observacion1 = new Observacion(1, "Mordieron una pagina", LocalDate.now());
         libro1.getObservaciones().add(observacion1);
         
@@ -28,6 +34,37 @@ public class Main {
         for (Observacion obs : observacionesLibro1) 
             System.out.println(obs.toString());
 
-        // Crear un prestamo
+
+        //Generos preferidos
+        System.out.println("\n=== Agregando géneros preferidos al usuario ===");
+        Usuario usuario1 = new Usuario("Ana Pérez", "USR001");
+        usuario1.getGenerosPreferidos().add("Cuento");
+        usuario1.getGenerosPreferidos().add("Novela");
+        System.out.println(usuario1.toString());
+        
+
+        // Notificaciones
+        System.out.println(biblioteca.bandejaEntrada());
+        biblioteca.devolverLibro();
+
+
+        //Prueba de multa
+        System.out.println("\n===== PRUEBA DE MULTA =====");
+        System.out.println();
+
+        Prestamo prestamo = new Prestamo("P100", usuario, libro1);
+
+        prestamo.setFechaDevolucionEsperada(LocalDate.now().minusDays(5));
+        prestamo.procesarDevolucion("2026-03-04");
+
+        // Verificar multa
+        if (prestamo.tieneMulta()) {
+            Recibo recibo = prestamo.generarRecibo();
+            recibo.imprimir();
+        }
+
+        /*Empleado horario */
+        System.out.println("======Horario entrada-salida Empleado====");
+        System.out.println(biblioteca.getEmpleadoBibliotecario().toString());
     }
 }   
