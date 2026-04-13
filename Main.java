@@ -7,16 +7,49 @@ public class Main {
 
         // Crear una instancia de la biblioteca
         Biblioteca biblioteca = new Biblioteca("Biblioteca Central", "Av. Principal #123");
-        biblioteca.setEmpleado("José Iturbide", "EMP001", 1000.00, "Bibliotecario", Empleado.MATUTINO,1);
-        Usuario usuario = new Usuario("junan", "fr");
-        biblioteca.setUsuario(usuario);
-
-
-        // Crear algunos libros
-        Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96, "Cuento");
-        biblioteca.setLibro(libro1);
-        biblioteca.prestarLibro("2026-03-04");
         
+        // Crear y agregar empleado
+        Empleado empleado = new Empleado("José Iturbide", "EMP001", "EMP001", "Bibliotecario", 1, null, null);
+        empleado.setSalario(1000.00);
+        empleado.setTurno(Empleado.MATUTINO);
+        biblioteca.agregarEmpleado(empleado);
+
+        // Crear y agregar usuario
+        Usuario usuario = new Usuario("junan", "fr");
+        biblioteca.agregarUsuario(usuario);
+
+
+        // Crear y agregar algunos libros
+        Libro libro1 = new Libro("El Principito", "Antoine de Saint-Exupéry", "978-0156012195", 96, "Cuento");
+        biblioteca.agregarLibro(libro1);
+        
+        // Probar busqueda de libro
+        System.out.println("Búsqueda de libros con 'El':");
+        for (Libro libro : biblioteca.buscarLibrosPorTitulo("El")) {
+            System.out.println(libro.getTitulo());
+        }
+
+        // Probar prestamo de libro
+        System.out.println("\nProbando préstamo de libro:");
+        if (biblioteca.prestarLibro("978-0156012195", "fr", "EMP001", "2026-03-04")) {
+            System.out.println("Préstamo realizado con éxito");
+        } else {
+            System.out.println("No se pudo realizar el préstamo");
+        }
+
+        // Mostrar libros prestados
+        System.out.println("\nLibros prestados:");
+        for (Libro libro : biblioteca.getLibrosPrestados()) {
+            System.out.println(libro.getTitulo());
+        }
+
+        // Probar devolución de libro
+        System.out.println("\nProbando devolución de libro:");
+        if (biblioteca.devolverLibro("978-0156012195", "EMP001")) {
+            System.out.println("Devolución realizada con éxito");
+        } else {
+            System.out.println("No se pudo realizar la devolución");
+        }
 
         //Proceso de observación
         System.out.println("=== Agregando observación al libro ===");
@@ -45,7 +78,7 @@ public class Main {
 
         // Notificaciones
         System.out.println(biblioteca.bandejaEntrada());
-        biblioteca.devolverLibro();
+        biblioteca.devolverLibro(null, null);
 
 
         //Prueba de multa
@@ -65,6 +98,10 @@ public class Main {
 
         /*Empleado horario */
         System.out.println("======Horario entrada-salida Empleado====");
-        System.out.println(biblioteca.getEmpleadoBibliotecario().toString());
+        System.out.println(biblioteca.obtenerEmpleado("EMP001").toString());
+
+        // Mostrar estado final de la biblioteca
+        System.out.println("\nEstado final de la biblioteca:");
+        System.out.println(biblioteca.toString());
     }
 }   

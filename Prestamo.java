@@ -78,14 +78,32 @@ public class Prestamo {
         }
         return false;
     }
-    public boolean procesarDevolucion(String strfechaDevolucion) {
+    public boolean procesarDevolucion() {
         if (estado == ACTIVO) 
         {
-            fechaDevolucionReal = LocalDate.parse(strfechaDevolucion);
-            if (usuario.devolverLibro()) {
+            fechaDevolucionReal = LocalDate.now();
+            libro.devolverLibro();
+            if (usuario.devolverLibro(libro)) 
+            {
                 estado = DEVUELTO;
                 return true;
             }
+            libro.prestarLibro();
+        }
+        return false;
+    }
+
+    public boolean procesarDevolucion(String fechaDevolucion) {
+        if (estado == ACTIVO) 
+        {
+            fechaDevolucionReal = LocalDate.parse(fechaDevolucion);
+            libro.devolverLibro();
+            if (usuario.devolverLibro(libro)) 
+            {
+                estado = DEVUELTO;
+                return true;
+            }
+            libro.prestarLibro();
         }
         return false;
     }

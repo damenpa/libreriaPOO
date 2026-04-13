@@ -1,11 +1,13 @@
 import java.time.LocalTime;
+import java.util.*;
 
 public class Empleado extends Persona {
     private String numeroEmpleado;
     private String puesto;
     private double salario;
     private int turno;
-    private Prestamo prestamoGestionado;
+    private Queue<Prestamo> prestamosEnProceso;
+    private List<Prestamo> historialPrestamos;
     private LocalTime horaEntrada;
     private LocalTime horaSalida;
     private static int contadorId = 0;
@@ -20,10 +22,12 @@ public class Empleado extends Persona {
         super(nombre, id);
         this.numeroEmpleado = numeroEmpleado;
         this.puesto = puesto;
-        this.prestamoGestionado = null;
         this.horaEntrada = entrada;
         this.horaSalida = salida;
         this.nivPermiso = nivPermiso;
+
+        this.prestamosEnProceso = new LinkedList<>();
+        this.historialPrestamos = new ArrayList<>();
 
     }
     public String getPuesto() {
@@ -50,9 +54,6 @@ public class Empleado extends Persona {
         this.turno = turno;
     }
 
-    public Prestamo getPrestamoGestionado() {
-        return prestamoGestionado;
-    }
     public String obtenerTipo() {
         return "Empleado";
     }
@@ -75,31 +76,51 @@ public class Empleado extends Persona {
         contadorId++;
         return "P" + String.format("%04d", contadorId);
     }
-    public boolean procesarPrestamo(Libro libro, Usuario usuario, String fechaPrestamo) { 
-        if (libro != null && usuario != null && !libro.isPrestado()) {
-            if (usuario.solicitarPrestamo(libro)) {
-                prestamoGestionado = new Prestamo(generarId(), usuario, libro, fechaPrestamo);
+    public boolean procesarPrestamo(Libro libro, Usuario usuario, String fechaPrestamo) 
+    { 
+        if (libro != null && usuario != null && !libro.isPrestado()) 
+        {
+            if (usuario.solicitarPrestamo(libro)) 
+            {
+                Prestamo nuevoPrestamo = new Prestamo(generarId(), usuario, libro);
+                prestamosEnProceso.offer(nuevoPrestamo);
+                historialPrestamos.add(nuevoPrestamo);
                 return true;
             }
         }
         return false;
     }
-    public boolean devolverPrestamo() {
-		    if (prestamoGestionado != null) {
-		        prestamoGestionado = null;
-		        return true;
-		    }
-		    return false;
+
+        public boolean devolverPrestamo() 
+        {
+		    Prestamo prestamo = prestamosEnProceso.poll();
+            return prestamo != null;
 		}
+
+        public Prestamo getPrestamoGestionado() {
+            return prestamosEnProceso.peek();
+        }
+
     public String toString() {
         return "<<<<<Empleado>>>>\npuesto=" + puesto + 
                ", \nsalario=" + salario + 
                " \nturno=" + turno + 
-               ", \nprestamoGestionado=" + prestamoGestionado + 
+               " \nprestamos activos=" + prestamosEnProceso.size() +
                ", \nnombre=" + getNombre() + 
                ", \nid=" + getId() +
                "\nHora entrada: "+horaEntrada+
                "\nHora salida: "+ horaSalida;
     }
+
+    public Queue<Prestamo> getPrestamosEnProceso()
+    {
+        return new LinkedList<>(prestamosEnProceso);
+    }
+
+    public List<Prestamo> getHistorialPrestamos()
+    {
+        return new ArrayList<>(historialPrestamos);
+    }
+
 
 }

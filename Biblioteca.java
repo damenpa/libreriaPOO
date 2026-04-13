@@ -1,4 +1,4 @@
-import java.time.LocalTime;
+import java.util.*;
 
 public class Biblioteca {
     private String nombre;
@@ -9,6 +9,10 @@ public class Biblioteca {
     private PrestamoVencido vencido;
     private LibrosDisp disponibilidad;
 
+    private List<Libro> libros; 
+    private Set<Usuario> usuarios;
+    private Map<String, Empleado> empleados;
+
     
     public Biblioteca(String nombre, String ubicacion) {
         this.nombre = nombre;
@@ -16,6 +20,10 @@ public class Biblioteca {
         this.empleadoBibliotecario = null;
         this.libro = null;
         this.usuario = null;
+
+        this.libros = new ArrayList<>();
+        this.usuarios = new HashSet<>();
+        this.empleados = new HashMap<>();
     }
 
     public String getNombre() {
@@ -26,49 +34,102 @@ public class Biblioteca {
         return ubicacion;
     }
 
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public void agregarLibro(Libro libro)
+    {
+        libros.add(libro);
     }
 
-    public Libro getLibro() {
-        return libro;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public Empleado getEmpleadoBibliotecario() {
-        return empleadoBibliotecario;
-    }
-
-    public void setEmpleado(String nombre, String Id, double salario, String puesto,int nivPermiso, int turno) {
-        this.empleadoBibliotecario = new Empleado( nombre,  Id, "78", puesto, nivPermiso,LocalTime.of(10,30), LocalTime.of(13,00));
-        empleadoBibliotecario.setSalario(salario);
-        empleadoBibliotecario.setTurno(turno);
-    }
-
-    public boolean prestarLibro(String fechaPrestamo) {
-        if (libro != null && usuario != null && !libro.isPrestado() && empleadoBibliotecario != null) {
-            return empleadoBibliotecario.procesarPrestamo(libro, usuario, fechaPrestamo);
+    public List<Libro> buscarLibrosPorTitulo(String titulo)
+    {
+        List<Libro> resultados = new ArrayList<>();
+        for(Libro libro : libros)
+        {
+            if(libro.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
+            {
+                resultados.add(libro);
+            }
         }
-        return false;
-    } 
-    public boolean devolverLibro() {
-        if (libro != null && usuario != null && libro.isPrestado() && 
-            empleadoBibliotecario != null && empleadoBibliotecario.getPrestamoGestionado() != null) {
-            libro.devolverLibro();
-            empleadoBibliotecario.devolverPrestamo();
-            disponibilidad = new LibrosDisp(libro);
-            System.out.println(disponibilidad.arrojarNotificacion());
-            return true;
-        }
-        return false;
+        return resultados;
     }
+
+    public void eliminarLibro(Libro libro)
+    {
+        libros.remove(libro);
+    }
+
+    public void agregarUsuario(Usuario usuario)
+    {
+        usuarios.add(usuario);
+    }
+
+    public void eliminarUsuario(Usuario usuario)
+    {
+        usuarios.remove(usuario);
+    }
+
+    public Usuario buscarUsuarioPorId(String id)
+    {
+        for(Usuario usuario : usuarios)
+        {
+            if(usuario.getId().equals(id))
+            {
+                return usuario;
+            }
+        }
+        return null;
+    }
+
+    public void agregarEmpleado(Empleado empleado)
+    {
+        empleados.put(empleado.getId(), empleado);
+    }
+
+    public Empleado obtenerEmpleado(String id)
+    {
+        return empleados.get(id);
+    }
+
+    public void eliminarEmpleado(String id)
+    {
+        empleados.remove(id);
+    }
+
+    public boolean prestarLibro(String isbnjsjss, String idUsuario, String idEmpleado, String fechaPrestamo) {
+		    Libro libro = null;
+		    for (Libro l : libros) {
+		        if (l.getIsbn().equals(isbnjsjss)) {
+		            libro = l;
+		            break;
+		        }
+		    }
+		    
+		    Usuario usuario = buscarUsuarioPorId(idUsuario);
+		    Empleado empleado = empleados.get(idEmpleado);
+		
+		    if (libro != null && usuario != null && empleado != null && !libro.isPrestado()) {
+		        return empleado.procesarPrestamo(libro, usuario, fechaPrestamo);
+		    }
+		    return false;
+		}
+    public boolean devolverLibro(String isbnjsjs, String idEmpleado) 
+    {
+		Libro libro = null;
+		for (Libro l : libros) {
+		    if (l.getIsbn().equals(isbnjsjs)) {
+		        libro = l;
+		        break;
+		    }
+		}
+		    
+		Empleado empleado = empleados.get(idEmpleado);
+		
+		if (libro != null && empleado != null && libro.isPrestado()) {
+		    libro.devolverLibro();
+		    empleado.devolverPrestamo();
+		    return true;
+		}
+		return false;
+	}
     public String bandejaEntrada(){
         String men = " ";
         if (libro != null && usuario != null && libro.isPrestado() &&
@@ -82,19 +143,40 @@ public class Biblioteca {
             return men;
         
     }
+    public List<Libro> getLibrosDisponibles() 
+    {
+    List<Libro> disponibles = new ArrayList<>();
+    for (Libro libro : libros) {
+        if (!libro.isPrestado()) {
+            disponibles.add(libro);
+        }
+    }
+    return disponibles;
+    }
+    public List<Libro> getLibrosPrestados() 
+    {
+        List<Libro> prestados = new ArrayList<>();
+        for (Libro libro : libros) {
+            if (libro.isPrestado()) {
+                prestados.add(libro);
+            }
+        }
+        return prestados;
+    }
     public String toString() {
         String estado = "";
         estado += "Biblioteca: " + nombre + "\n";
         estado += "Ubicación: " + ubicacion + "\n";
-        estado += "Libro actual: ";
-        estado += (libro != null ? libro.getTitulo() : "Ninguno") + "\n";
-        estado += "Usuario actual: ";
-        estado += (usuario != null ? usuario.getNombre() : "Ninguno") + "\n";
-        estado += "Bibliotecario: ";
-        estado += (empleadoBibliotecario != null ? empleadoBibliotecario.getNombre() : "Sin asignar") + "\n";
-        estado += "Estado préstamo: ";
-        estado += (empleadoBibliotecario != null && empleadoBibliotecario.getPrestamoGestionado() != null ? 
-                "Préstamo activo" : "Sin préstamos");
+        estado += "Total de libros: " + libros.size() + "\n";
+        estado += "Libros disponibles: " + getLibrosDisponibles().size() + "\n";
+        estado += "Libros prestados: " + getLibrosPrestados().size() + "\n";
+        estado += "Total de usuarios registrados: " + usuarios.size() + "\n";
+        estado += "Total de empleados: " + empleados.size() + "\n";
+        estado += "\nLibros actualmente prestados:\n";
+        for (Libro libro : getLibrosPrestados()) {
+            estado += "- " + libro.getTitulo() + "\n";
+        }
+        
         return estado;
     }
 
