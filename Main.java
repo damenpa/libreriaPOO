@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Vector;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
         Biblioteca biblioteca = new Biblioteca("Biblioteca Central", "Av. Principal #123");
         
         // Crear y agregar empleado
-        Empleado empleado = new Empleado("José Iturbide", "EMP001", "EMP001", "Bibliotecario", 1, null, null);
+        Empleado empleado = new Empleado("José Iturbide", "EMP001", "EMP001", "Bibliotecario", 1, LocalTime.of(9, 0), LocalTime.of(17, 0));
         empleado.setSalario(1000.00);
         empleado.setTurno(Empleado.MATUTINO);
         biblioteca.agregarEmpleado(empleado);
